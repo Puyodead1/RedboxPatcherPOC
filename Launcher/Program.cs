@@ -112,23 +112,7 @@ namespace Launcher
                 CreateNoWindow = false
             };
 
-            using (var targetProcess = Process.Start(startInfo))
-            {
-                if (targetProcess != null)
-                {
-                    targetProcess.OutputDataReceived += (sender, eventArgs) => Console.WriteLine(eventArgs.Data);
-                    targetProcess.ErrorDataReceived += (sender, eventArgs) => Console.Error.WriteLine(eventArgs.Data);
-
-                    targetProcess.BeginOutputReadLine();
-                    targetProcess.BeginErrorReadLine();
-
-                    targetProcess.WaitForExit();
-                }
-                else
-                {
-                    Console.WriteLine("Failed to start the target application.");
-                }
-            }
+            Process.Start(startInfo);
         }
 
         private static byte[] ReadStreamAssembly(Stream assemblyStream)

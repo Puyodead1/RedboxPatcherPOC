@@ -89,7 +89,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Redbox.Rental.Services\" />
-    <Folder Include="Redbox.Rental.UI\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
