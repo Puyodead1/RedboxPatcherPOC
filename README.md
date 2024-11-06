@@ -20,5 +20,11 @@ RedboxPatcher/
 Use `Build Solution`, all output will be in the `build` folder, and should already be in the correct folder structure
 
 # Usage
-- Go to the Kiosk Engine bin folder (ex `C:\Program Files\Redbox\REDS\Kiosk Engine\bin`) and rename `kioskengine.exe` to `kioskengine_o.exe`
-- Copy the everything from the build folder to the kiosk engine bin folder
+- Go to the Kiosk Engine bin folder (`C:\Program Files\Redbox\REDS\Kiosk Engine\bin`) and copy all files from `build` into it
+- Go to the Kiosk Shell folder (`C:\Program Files\Redbox\KioskShell`) and open `KioskShell.exe.config` in a text editor, scroll down and find the following:
+```
+<setting name="KioskEnginePath" serializeAs="String">
+	<value>C:\Program Files\Redbox\REDS\Kiosk Engine\bin\kioskengine.exe</value>
+</setting>
+```
+Change the exe from `kioskengine.exe` to `Launcher.exe`, save and close the file

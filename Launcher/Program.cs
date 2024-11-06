@@ -30,7 +30,7 @@ namespace Launcher
                 Directory.CreateDirectory(modDepsFolder);
 
 
-            string targetPath = Path.Combine(AssemblyFolder, "kioskengine_o.exe");
+            string targetPath = Path.Combine(AssemblyFolder, "kioskengine.exe");
             if (string.IsNullOrEmpty(targetPath) || !File.Exists(targetPath))
                 throw new Exception($"Target assembly not found! {targetPath}");
 
@@ -108,7 +108,7 @@ namespace Launcher
             // Start the target process
             var startInfo = new ProcessStartInfo(targetPath)
             {
-                UseShellExecute = true,
+                UseShellExecute = false,
                 CreateNoWindow = false
             };
 
