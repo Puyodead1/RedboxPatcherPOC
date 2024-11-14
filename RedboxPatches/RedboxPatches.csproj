@@ -60,8 +60,28 @@
       <HintPath>..\packages\Lib.Harmony.2.3.3\lib\net472\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="DeviceService.ComponentModel">
+      <HintPath>..\libs\DeviceService.ComponentModel.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Redbox.Core">
+      <HintPath>..\libs\Redbox.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Redbox.KioskEngine.ComponentModel">
+      <HintPath>..\libs\Redbox.KioskEngine.ComponentModel.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Redbox.KioskEngine.Environment">
+      <HintPath>..\libs\Redbox.KioskEngine.Environment.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Redbox.Rental.Model">
+      <HintPath>..\libs\Redbox.Rental.Model.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Redbox.Rental.Services">
       <HintPath>..\libs\Redbox.Rental.Services.dll</HintPath>
       <Private>False</Private>
@@ -82,13 +102,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RedboxRentalServices\AuthenticatePatch.cs" />
+    <Compile Include="RedboxRentalServices\MerchandiseDateDatePatch.cs" />
+    <Compile Include="RedboxRentalServices\GamesButtonPatch.cs" />
+    <Compile Include="RedboxRentalServices\DoNotRentDatePatch.cs" />
+    <Compile Include="RedboxRentalServices\IsRentablePatch.cs" />
+    <Compile Include="RedboxRentalServices\IsSellablePatch.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Redbox.Rental.Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

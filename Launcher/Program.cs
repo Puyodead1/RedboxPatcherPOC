@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading;
-using System.Linq;
-using System.Diagnostics;
 
 namespace Launcher
 {
@@ -15,7 +13,6 @@ namespace Launcher
         static void Main(string[] args)
         {
             Harmony.DEBUG = true;
-            
 
             string AssemblyFile = Assembly.GetExecutingAssembly().Location;
             string AssemblyFolder = Path.GetFullPath(Path.GetDirectoryName(AssemblyFile) + Path.DirectorySeparatorChar);
@@ -56,18 +53,17 @@ namespace Launcher
                 ModCount++;
             }
 
-            //Console.WriteLine($"Loading main assembly: {targetPath}");
-            //Assembly main = Assembly.LoadFile(targetPath);
+            Console.WriteLine($"Loading main assembly: {targetPath}");
+            Assembly main = Assembly.LoadFile(targetPath);
 
-
-            //Console.WriteLine("Loading main dependencies ...");
-            //foreach (var file in main.GetManifestResourceNames())
-            //    if (file.Contains(".dll"))
-            //    {
-            //        Console.WriteLine("Loading: " + file);
-            //        Stream input = main.GetManifestResourceStream(file);
-            //        Assembly.Load(ReadStreamAssembly(input));
-            //    }
+            Console.WriteLine("Loading main dependencies ...");
+            foreach (var file in main.GetManifestResourceNames())
+                if (file.Contains(".dll"))
+                {
+                    Console.WriteLine("Loading: " + file);
+                    Stream input = main.GetManifestResourceStream(file);
+                    Assembly.Load(ReadStreamAssembly(input));
+                }
 
             Harmony harmony = new Harmony("me.puyodead1.redbox");
             foreach (var mod in modsAssemblies)
@@ -79,7 +75,8 @@ namespace Launcher
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Harmony.PatchAll() failed on {mod.GetName().Name}!", ex);
+                    Console.WriteLine($"Harmony.PatchAll() failed on {mod.GetName().Name}!");
+                    Console.WriteLine(ex);
                 }
             }
 
@@ -95,24 +92,24 @@ namespace Launcher
             Console.WriteLine("Starting KioskEngine");
             Thread.Sleep(1000);
 
-            //// Open the Target on an STA thread
-            //var thread = new Thread(() =>
-            //{
-            //    main.EntryPoint.Invoke(null, null);
-            //});
-
-            //// Set the new thread to STA
-            //thread.SetApartmentState(ApartmentState.STA);
-            //thread.Start();
-
-            // Start the target process
-            var startInfo = new ProcessStartInfo(targetPath)
+            // Open the Target on an STA thread
+            var thread = new Thread(() =>
             {
-                UseShellExecute = false,
-                CreateNoWindow = false
-            };
+                main.EntryPoint.Invoke(null, null);
+            });
 
-            Process.Start(startInfo);
+            // Set the new thread to STA
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+
+            //// Start the target process
+            //var startInfo = new ProcessStartInfo(targetPath)
+            //{
+            //    UseShellExecute = false,
+            //    CreateNoWindow = false
+            //};
+
+            //Process.Start(startInfo);
         }
 
         private static byte[] ReadStreamAssembly(Stream assemblyStream)
